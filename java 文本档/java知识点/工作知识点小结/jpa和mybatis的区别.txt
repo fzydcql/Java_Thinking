@@ -1,0 +1,14 @@
+JPA概述：
+  1.java Persistence API（java持久层API）:用于对象持久化的API
+  2.作用：使得应用程序以统一的方式访问持久层
+
+  Hibernate：
+    jpa是Hibernate的一个抽象，就像JDBC和JDBC驱动的关系
+    JPA是一种ORM规范，是Hibernate功能的一个子集（既然JPA是规范，Hibernate对JPA进行了扩展，那么说jpa是Hibernate的一个子集也不为过）
+    Hibernate是JPA的一个实现
+
+ JPA包括三个方面的技术：
+     1.ORM映射元数据，支持xml和jdk注解两种元数据的形式
+     2.JPA的API
+     3.查询语言：JPQL
+
