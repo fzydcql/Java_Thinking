@@ -1,0 +1,31 @@
+ArrayList：数组列表，装载数据 存储基本类型都是存储他们的引用类型也就是包装类
+
+ArrayList底层是用数组实现的存储 Object[] elementData 查询快 增删慢 线程不安全 使用频率高
+
+类似的linkedList  底层是双向链表  查询慢 增删快
+
+使用场景：如果涉及频繁的增删就用linkedList，如果线程安全就用Vector。
+
+
+ArrayList可以通过构造方法在初始化的时候指定底层数组的大小。
+
+通过无参构造方法的方式ArrayList（）初始化，则赋值底层数Object[] elementData为一个默认空数组Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {}所以数组容量为0
+只有真正对数据进行添加add的时候，才分配默认DEFAULT_CAPACITY=10的初始容量。
+
+数组扩容：
+   1.直接新增会判断ensureCapacityInternal，就是说如果长度不够，是需要扩容的。
+   2.在扩容的时候，jdk1.8采用了位运算，右移一位，其实就是除以2这个操作。
+   3.指定位置新增，就是在校验之后的操作很简单，就是数组的copy。
+arrayCopy：
+   在指定位置，新增元素，复制一个数组，是从这个位置开始，他会复制一个数组，是从指定位置开始的，然后把它放在指定位置+1的位置。给我们新增的元素提供了空位。
+
+ArrayList(int initialCapacity)会不会初始化数组大小？
+  不会初始化数组大小，而且如果将构造函数与initialCapacity结合使用，然后用set()方法会抛出异常，尽管数组已创建，但是大小设置不正确。
+
+删除和新增元素一样都是靠复制数组来运行的。
+
+ArrayList适合做队列嘛？
+  队列一般是FIFO（先入先出）的，如果用ArrayList做队列，就需要在数组尾部追加数据，数组头部删除数组，反过来也可以。但是无论任何总会有一个操作涉及到数组的数据搬迁，这个是比较耗费性能的。所以ArrayList是不适合做队列的。
+
+ArrayList的遍历和LinkedList遍历性能比较如何？
+  遍历ArrayList要比LinkedList快得多，ArrayList遍历最大的优势在于内存的连续性，CPU的内部不缓存结构会缓存连续的内存片段，可以大幅降低读取内存的性能开销。

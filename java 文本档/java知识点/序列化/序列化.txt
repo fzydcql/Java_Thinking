@@ -1,0 +1,41 @@
+一. 序列化，反序列化概念及其适用场景
+   1.序列化，反序列化的概念、
+      简单的讲，序列化就是将java对象转化成二进制保存到磁盘中去，反序列化就是从磁盘中读取文件流后转成java对象。
+   2.使用场景
+      -网络通讯传输java对象数据
+      -永久保存java对象
+二.实现序列化的方式有哪些？
+   1.实现Serialiazable接口。
+      -基于Serializable接口
+          在java对象的基础上实现Serializable接口
+          序列化ID：相当于版本号
+          java对象类在实现序列化是必须要实现Serializable接口的
+
+   2.实现Externalizable。   
+      -Exterbalizable接口继承自Serialiazable接口。
+          Externalizable接口允许我们自定义对象属性的序列化
+          实现Externalizable接口必须重写writeExternal和readExternal方法。
+
+二者区别：两种实现方式区别在于Externalizable允许我们自定义序列化规则，Externalizable接口会初始化一次无参构造器，而Serialiazable不会。
+  
+  三.transient关键字和static成员变量
+     通过Externalizable接口我们可以自定义序列化的属性，同样的道理，关键字transient也可以达到同样的效果，但是两者之间还是有一些区别的。
+     1.将不需要序列化的属性前添加关键字transient，序列化对象的时候，这个属性就不会被序列化。
+     2.如果我们想private属性不被序列化，则可以使用Externalizable。
+        static修饰的成员变量属于类全局属性，其值在JDK1.8存储于元数据区，不属于对象范围，将不会被序列化。
+  四.关于serialVersionUID
+     java能否反序列化成功，取决于serialVersionUID是否一致，我们可以把它理解成为版本号，一旦版本号不一致，将会报序列化出错。我们可以为对象声明一个自定义serialVersionUID，也可以使用默认的1L。
+     总结就是：
+        当我们新增一个类实现Serialiazable接口时，建议我们为其新增一个serialVersionUID，因为假设我们没有声明UID，那么后面我们假设修改了该类(新增字段)的接口时，当我们再次反序列化就会报错。
+     static修饰的不会序列化，但是UID被修饰了还是会被序列化
+  五.序列化，反序列化实现深度克隆
+     
+  六.总结
+    1.新增序列化类时，建议新增一个自定义id，防止后续版本之间不兼容
+    2.static，transient修饰的字段不会被序列化，序列化同样也会序列化private属性
+    3.序列化可以实现深度克隆
+    4.实现序列化有两种方式，一种直接实现Serialiazable接口，一种现实Externalizable接口，后者允许我们自定义序列化规则。
+
+
+  序列化的底层实现？
+     
